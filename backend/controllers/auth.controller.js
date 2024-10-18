@@ -4,7 +4,7 @@ import generateTokenAndSetCookie from "../utils/generateToken.js";
 
 export const signupUser = async (req, res) => {
   try {
-    const { firstName, lastName, email, username, password, confirmPassword } =
+    const { gender, email, username, password, confirmPassword } =
       req.body;
 
     //Checking if the Passwords match
@@ -23,18 +23,26 @@ export const signupUser = async (req, res) => {
         .json({ error: "Username Already Exists, Please change username" });
     }
 
+    //Check if the email exists
+    const userEmail = await User.findOne({ email });
+
+    if (userEmail) {
+      return res
+        .status(400)
+        .json({ error: "Email is Already Associated with Another Account" });
+    }
+
     //Hashing the password before storing it in db
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     //setting default profilePic
-    const profilePic = `https://avatar.iran.liara.run/username?username=${firstName}+${lastName}`;
+    const profilePic = `https://avatar.iran.liara.run/username?username=${username}`;
     const boyProfilePic = `https://avatar.iran.liara.run/public/boy`;
     const girlProfilePic = `https://avatar.iran.liara.run/public/girl`;
 
     const newUser = new User({
-      firstName,
-      lastName,
+      gender,
       username,
       email,
       password: hashedPassword,
@@ -49,7 +57,6 @@ export const signupUser = async (req, res) => {
 
       res.status(201).json({
         id: newUser._id,
-        firstName: newUser.firstName,
         username: newUser.username,
         email: newUser.email,
         profilePic: newUser.profilePic,
@@ -66,6 +73,7 @@ export const signupUser = async (req, res) => {
 export const loginUser = async (req, res) => {
 
   try {
+    console.log(req.body);
 
     const { username, password } = req.body;
 
@@ -74,14 +82,13 @@ export const loginUser = async (req, res) => {
     const isPasswordCorrect = await bcrypt.compare(password, user?.password || "");
 
     if(!user || !isPasswordCorrect) {
-        res.status(400).json({error: "Invalid Username or Password"})
+        return res.status(400).json({error: "Invalid Username or Password"})
     }
 
     generateTokenAndSetCookie(user._id, res);
 
     res.status(200).json({
         _id: user._id,
-        fullName: user.firstName + " " + user.lastName,
         username: user.username,
         profilePic: user.profilePic,
     })

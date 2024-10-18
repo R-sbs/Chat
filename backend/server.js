@@ -5,8 +5,17 @@ import userRoutes from './routes/userRoutes.js'
 import cookieParser from 'cookie-parser';
 import { PORT } from '../config.js';
 import connectDb from './db/dbConnection.js';
+import cors from 'cors';
 
 const app = express();
+
+// Use CORS middleware to allow requests from frontend
+app.use(cors(
+    {
+        origin: 'http://localhost:5173', // Frontend's URL (React running on Vite)
+        credentials: true, // Allow credentials (cookies, authorization headers)
+      }
+));
 
 // json body parser
 app.use(express.json())

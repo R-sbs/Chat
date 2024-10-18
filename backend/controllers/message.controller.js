@@ -3,6 +3,7 @@ import Message from "../models/message.model.js";
 
 const sendMessage = async ( req, res) => {
     try {
+        console.log(req.body)
         const { message } = req.body;
         const { id: receiverId } = req.params;
 
@@ -45,6 +46,7 @@ export const getMessages = async ( req, res) => {
     try {
 
         const { id: userToChatWith } = req.params;
+        console.log(req.params);
         const senderId = req.user._id;
 
         const conversation = await Conversation.findOne({

@@ -1,17 +1,18 @@
+import useGetConversations from "../../hooks/useGetConversations.js";
 import Conversation from "./conver"
 
 const Conversations = () => {
 
+  const { loading, conversations } = useGetConversations();
+
+
   return (
 
-    <div className='px-8 flex flex-col overflow-auto max-h-[300px] flex-1'>
-      <Conversation bg="bg-black" />
-      <Conversation />
-      <Conversation />
-      <Conversation />
-      <Conversation />
-      <Conversation />
-      <Conversation />
+    <div className='px-8 flex flex-col overflow-auto min-h-[280px] flex-1'>
+      { conversations.map((conversation, index) => ( 
+        <Conversation key={conversation._id} conversation={conversation} lastIndex={index === conversations.length -1} />
+      ))}
+      {loading ? <span className="loading loading-spinner mx-auto"></span> : null}
     </div>
 
   )
