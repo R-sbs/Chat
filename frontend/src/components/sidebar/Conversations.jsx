@@ -1,6 +1,6 @@
 
 import useGetConversations from "../../hooks/useGetConversations.js";
-import Conversation from "./conver"
+import Conversation from "./Conversation.jsx";
 
 const Conversations = () => {
 

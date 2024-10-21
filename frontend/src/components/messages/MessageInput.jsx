@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { AiOutlineSend } from "react-icons/ai";
-import useSendMessage from '../../hooks/useSendMessage';
+import useSendMessage from '../../hooks/useSendMessage.js';
 
 
 const MessageInput = () => {

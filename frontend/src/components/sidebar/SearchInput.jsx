@@ -1,8 +1,8 @@
-import { FaSearchengin } from 'react-icons/fa6'
-import useConversation from '../../zustand/useConversation';
-import useGetConversations from '../../hooks/useGetConversations';
-import toast from 'react-hot-toast';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { FaSearchengin } from 'react-icons/fa6'
+import useConversation from '../../zustand/useConversation.js';
+import useGetConversations from '../../hooks/useGetConversations.js';
 
 const SearchInput = () => {
 

@@ -1,8 +1,8 @@
 import { useEffect } from "react"
-import useConversation from "../../zustand/useConversation"
-import MessageInput from "./MessageInput"
-import Messages from "./Messages"
-import { useAuth } from "../../context/auth.contex"
+import useConversation from "../../zustand/useConversation.js"
+import MessageInput from "./MessageInput.jsx"
+import Messages from "./Messages.jsx"
+import { useAuth } from "../../context/auth.contex.jsx"
 import { FaMessage } from "react-icons/fa6"
 
 

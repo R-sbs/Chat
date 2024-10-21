@@ -1,10 +1,10 @@
-
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+
+import { useAuth } from './context/auth.contex.jsx';
 import Home from './pages/Home.jsx';
 import SignUp from './pages/signup/SignUp.jsx';
 import Login from './pages/login/Login.jsx';
-import { Toaster } from 'react-hot-toast';
-import { useAuth } from './context/auth.contex.jsx';
 
 function App() {
 

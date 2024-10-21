@@ -1,6 +1,6 @@
 
 import { useSocket } from '../../context/socket.context.jsx';
-import useConversation from '../../zustand/useConversation';
+import useConversation from '../../zustand/useConversation.js';
 
 const Conversation = ({ conversation, lastIndex} ) => {
 
