@@ -1,5 +1,5 @@
 import {Server} from 'socket.io';
-import { socketIoOrigin } from '../../config';
+import { socketIoOrigin } from '../../config.js';
 
 import http from 'node:http';
 

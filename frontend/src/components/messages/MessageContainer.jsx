@@ -4,7 +4,7 @@ import MessageInput from "./MessageInput"
 import Messages from "./Messages"
 import { useAuth } from "../../context/auth.contex"
 import { FaMessage } from "react-icons/fa6"
-import Sound from "../sound"
+import Sound from "../sound.jsx"
 
 
 const MessageContainer = () => {
