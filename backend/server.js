@@ -6,8 +6,8 @@ import cookieParser from 'cookie-parser';
 import { PORT } from '../config.js';
 import connectDb from './db/dbConnection.js';
 import cors from 'cors';
+import {app, server} from './socket/socket.js'
 
-const app = express();
 
 // Use CORS middleware to allow requests from frontend
 app.use(cors(
@@ -28,7 +28,7 @@ app.use('/api/messages', messageRoutes);
 app.use('/api/users', userRoutes );
 
 //initialising server to listen on port
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     connectDb()
     console.log(`Server is listening on port ${PORT}...`);
 })

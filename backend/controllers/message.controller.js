@@ -1,5 +1,10 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
+import { getReceiverSocketId } from "../socket/socket.js";
+import { io } from '../socket/socket.js'
+
+
+
 
 const sendMessage = async ( req, res) => {
     try {
@@ -32,7 +37,16 @@ const sendMessage = async ( req, res) => {
         //await newMessage.save();
 
         //to execute both in parellel
-        await Promise.all([conversation.save(), newMessage.save()])
+        await Promise.all([conversation.save(), newMessage.save()]);
+
+        //Socket.io Functionality for real time messaging
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        
+
+        if(receiverSocketId) {
+            //io.to(<socketId>.emit(<message>)) is used to send events to specific user
+            io.to(receiverSocketId).emit("new message", newMessage);
+        }
 
         res.status(201).json(newMessage);
         
@@ -71,3 +85,4 @@ export const getMessages = async ( req, res) => {
 }
 
 export default sendMessage;
+

@@ -4,8 +4,43 @@
 
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-  url('/bg.jpg') center / cover no-repeat fixed;
+    url("/bg.jpg") center / cover no-repeat fixed;
   height: 100vh;
-  
-  font-family: 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+
+  font-family: "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+    Geneva, Verdana, sans-serif;
+}
+
+.shake {
+  animation: shake 0.9s cubic-bezier(0.39, 0.575, 0.565, 1) 0.2s both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  50%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }

@@ -1,4 +1,5 @@
 
+import { useSocket } from '../../context/socket.context.jsx';
 import useConversation from '../../zustand/useConversation';
 
 const Conversation = ({ conversation, lastIndex} ) => {
@@ -7,9 +8,13 @@ const Conversation = ({ conversation, lastIndex} ) => {
 
   const isSelected = selectedConversation?._id === conversation._id;
 
+  const { onlineUsers } = useSocket();
+
+  const isOnline = onlineUsers.includes(conversation._id)
+
   return (
     <div className={`flex gap-2 items-center hover:bg-gray-700 rounded-md px-2 py-1 cursor-pointer ${isSelected && 'bg-gray-900'}`} onClick={ () => (setSelectedConversation(conversation))}>
-        <div className="avatar online outline-0">
+        <div className={`avatar outline-0 ${ isOnline && 'online'}`}>
             <div className="w-10 rounded-md p-2 overflow-hidden">
              <img src={conversation.profilePic} alt="pic" className='bg-cover w-full h-full'/>
             </div>
