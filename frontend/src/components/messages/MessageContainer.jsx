@@ -4,7 +4,6 @@ import MessageInput from "./MessageInput"
 import Messages from "./Messages"
 import { useAuth } from "../../context/auth.contex"
 import { FaMessage } from "react-icons/fa6"
-import Sound from "../sound.jsx"
 
 
 const MessageContainer = () => {
@@ -46,7 +45,6 @@ const NoChatSelected = () => {
       <div className="px-4 text-center sm:text-lg md:text-xl text-gray-200 font-semi-bold flex flex-col items-center gap-2">
         <p>Welcome {authUser.username} 👋, </p>
         <p>Select the chat to start messaging</p>
-        <Sound />
         <FaMessage className="size-6 text-white text-center" />
       </div>
     </div>
