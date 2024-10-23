@@ -7,9 +7,10 @@ import { io } from '../socket/socket.js'
 
 
 const sendMessage = async ( req, res) => {
+
     try {
-        console.log(req.body)
         const { message } = req.body;
+
         const { id: receiverId } = req.params;
 
         const senderId = req.user._id;
@@ -28,6 +29,7 @@ const sendMessage = async ( req, res) => {
         const newMessage = new Message({
             senderId, receiverId, message
         })
+
 
         if(newMessage) {
             conversation.messages.push(newMessage._id);
@@ -57,10 +59,11 @@ const sendMessage = async ( req, res) => {
 }
 
 export const getMessages = async ( req, res) => {
-    try {
 
+    try {
+        
         const { id: userToChatWith } = req.params;
-        console.log(req.params);
+
         const senderId = req.user._id;
 
         const conversation = await Conversation.findOne({

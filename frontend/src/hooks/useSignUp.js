@@ -3,10 +3,11 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "../context/auth.contex";
+import useAPI from "./useAPI";
 
 
 const useSignUp = () => {
-
+  const API_URL = useAPI.API_URL;
   const [loading, setLoading] = useState(false); 
   
   const { setAuthUser } = useAuth();
@@ -38,7 +39,7 @@ const useSignUp = () => {
             password,
             confirmPassword,
           };
-      const res = await axios.post("http://localhost:3000/api/auth/signup", formData);
+      const res = await axios.post(`${API_URL}/auth/signup`, formData);
 
       const data = await res.data;
 

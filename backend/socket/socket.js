@@ -1,11 +1,8 @@
 import {Server} from 'socket.io';
-import { socketIoOrigin } from '../../config.js';
+import config from '../../config.js';
 
 import http from 'node:http';
-
 import express from 'express';
-
-console.log(socketIoOrigin);
 
 const app = express();
 
@@ -13,7 +10,7 @@ const server = new http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: [socketIoOrigin],
+        origin: 'http://localhost:5173',
         methods: ["GET", "POST"]
     }
 })
@@ -25,6 +22,7 @@ const io = new Server(server, {
  }
 
 io.on("connection", (socket) => {
+  
     console.log("A User is Connects", socket.id);
 
 

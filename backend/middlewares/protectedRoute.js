@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { secret } from '../../config.js';
+import config from '../../config.js';
 import User from '../models/user.model.js';
 
 const protectRoute =  async (req, res, next) => {
@@ -12,7 +12,7 @@ const protectRoute =  async (req, res, next) => {
             return res.status(401).json({ error: 'Token is Not provided'})
         }
 
-        const decoded = jwt.verify( token, secret );
+        const decoded = jwt.verify( token, config.JWT_SECRET );
         if(!decoded) {
             return res.status(401).json({ error: 'Token is Invalid'})
         }

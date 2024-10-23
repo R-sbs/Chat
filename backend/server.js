@@ -3,20 +3,18 @@ import authRoutes from './routes/authRoutes.js';
 import messageRoutes from './routes/messageRoutes.js';
 import userRoutes from './routes/userRoutes.js'
 import cookieParser from 'cookie-parser';
-import { PORT } from '../config.js';
+import config from '../config.js';
 import connectDb from './db/dbConnection.js';
 import cors from 'cors';
-import {app, server} from './socket/socket.js';
+import { app, server, io } from './socket/socket.js';
 import path from 'node:path';
 
-
 const __dirname = path.resolve();
-
 
 // Use CORS middleware to allow requests from frontend
 app.use(cors(
     {
-        origin: 'http://localhost:5173', // Frontend's URL (React running on Vite)
+        origin: config.REACT_APP_URL, // Frontend's URL (React running on Vite)
         credentials: true, // Allow credentials (cookies, authorization headers)
       }
 ));
@@ -36,12 +34,12 @@ app.use('/api/users', userRoutes );
 app.use(express.static(path.join(__dirname, '/frontend/dist')));
 
 //catch all routes other than above routes
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-})
+ app.get("*", (req, res) => {
+     res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+ })
 
 //initialising server to listen on port
-server.listen(PORT, () => {
+server.listen(config.PORT, () => {
     connectDb()
-    console.log(`Server is listening on port ${PORT}...`);
+    console.log(`Server is listening on port ${config.PORT}...`);
 })

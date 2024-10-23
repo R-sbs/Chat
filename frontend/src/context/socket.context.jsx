@@ -1,6 +1,9 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import { useAuth } from "./auth.contex.jsx";
 import io from 'socket.io-client';
+import useAPI from '../hooks/useAPI.js';
+
+const SOCKET_URL = useAPI.SOCKET_END_URL;
 
 export const SocketContext = createContext();
 
@@ -9,13 +12,14 @@ export const useSocket = () => {
 }
 
 export const SocketContextProvider =  ({children}) => {
+    
     const [socket, setSocket] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const {authUser} = useAuth();
 
     useEffect( () => {
         if(authUser) {
-            const socket = io('https://chat-fsrw.onrender.com', {
+            const socket = io(SOCKET_URL, {
                 query: {
                     userId: authUser._id
                 }
@@ -25,8 +29,6 @@ export const SocketContextProvider =  ({children}) => {
             socket.on("getOnlineUsers", (users) => {
                 setOnlineUsers(users);
             })
-
-
 
             return () => socket.close();
         } else {

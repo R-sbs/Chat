@@ -2,10 +2,15 @@ import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/auth.contex";
+import useAPI from "./useAPI";
+
+
 
 const useLogin = () => {
-    const { setAuthUser} = useAuth();
+
+  const { setAuthUser } = useAuth();
   const [loading, setLoading] = useState(false);
+
 
   const login = async ({ username, password }) => {
     const success = handleInputErrors({ username, password });
@@ -20,43 +25,40 @@ const useLogin = () => {
         password,
       };
 
-      const res = await axios.post('http://localhost:3000/api/auth/login', formData, {
-        withCredentials: true,  // Include cookies with request
-      });
+      const API_URL = useAPI.API_URL;
 
-      console.log(res.cookie)
+      const res = await axios.post(`${API_URL}/auth/login`, formData, {
+        withCredentials: true, // Include cookies with request
+      });
 
       const data = await res.data;
 
       console.log(data);
 
-      if(res.status === 201) {
+      if (res.status === 201) {
         toast.success("Logged in Successfully");
-        }
+      }
 
-        if(data.error) {
-            throw new Error(data.error);
-        }
+      if (data.error) {
+        throw new Error(data.error);
+      }
 
-        //local storage
-        localStorage.setItem("user", JSON.stringify(data));
+      //local storage
+      localStorage.setItem("user", JSON.stringify(data));
 
-        setAuthUser(data); 
-
+      setAuthUser(data);
 
     } catch (error) {
       console.log(error);
-      if(error.response.data.error){
-          toast.error(error.response.data.error)
+      if (error.response.data.error) {
+        toast.error(error.response.data.error);
       }
-
-
     } finally {
       setLoading(false);
     }
   };
 
-  return { loading, login}
+  return { loading, login };
 };
 
 export default useLogin;

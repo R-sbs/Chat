@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import useConversation from "../zustand/useConversation";
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import useAPI from "./useAPI";
 
 const useSendMessage = () => {
+  const API_URL = useAPI.API_URL;
   const [loading, setLoading] = useState(false);
 
   const { messages, setMessages, selectedConversation } = useConversation();
@@ -14,7 +16,7 @@ const useSendMessage = () => {
 
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/messages/send/${selectedConversation._id}`,
+        `${API_URL}/messages/send/${selectedConversation._id}`,
         { message },
         {
           withCredentials: true,

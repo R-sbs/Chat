@@ -1,11 +1,9 @@
-// export const PORT = process.env.PORT || 5000;
-// export const DBString = process.env.MONGO_DB_URI;
-// export const secret = process.env.JWT_SECRET ;
-// export const socketIoOrigin = process.env.SOCKET_IO_ORIGIN;
-
-// Load environment variables from the .env file
 import dotenv from 'dotenv';
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` });  // This loads .env file and makes the values available in process.env
+import path from 'path';
+
+// Determine the path for the environment file
+const envPath = path.resolve(process.cwd(), `.env.${process.env.NODE_ENV || 'development'}`);
+dotenv.config({ path: envPath });
 
 const config = {
   development: {
